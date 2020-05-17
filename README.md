@@ -48,14 +48,27 @@ ejercicios indicados.
                                 
 - Explique el procedimiento seguido para obtener un fichero de formato *fmatrix* a partir de los ficheros
   de salida de SPTK (líneas 41 a 47 del script `wav2lp.sh`).
-
+  
+  Para obtener el fichero en formato *fmatrix* obtenemos el numero de columnas que corresponde con el numero de coeficientes cepstrales más uno ya que el primer elemento se corresponde con la ganancia de predicción. Además obtenemos el numero de filas transformando la señal parametrizada a texto utilizando `sox +fa`. De este mode construimos el fichero fmatrix poniendo el numero de filas y columnas, seguidos de los datos de la señal parametrizada.
+  
+  
   * ¿Por qué es conveniente usar este formato (u otro parecido)?
+  
+  Para poder obtener para cada trama los coeficientes cepstrales. De este modo tenemos de un modo compacto cada trama con sus  coeficientes correspondientes.
+  
 
 - Escriba el *pipeline* principal usado para calcular los coeficientes cepstrales de predicción lineal
   (LPCC) en su fichero <code>scripts/wav2lpcc.sh</code>:
-
+  
+sox $inputfile -t raw -e signed -b 16 - | $X2X +sf | $FRAME -l 240 -p 80 | $WINDOW -l 240 -L 240 |
+	$LPC -l 240 -m $lpc_order | $LPCC -m $lpc_order -M $cep_order > $base.lpcc
+  
 - Escriba el *pipeline* principal usado para calcular los coeficientes cepstrales en escala Mel (MFCC) en
   su fichero <code>scripts/wav2mfcc.sh</code>:
+  
+  sox $inputfile -t raw -e signed -b 16 - | $X2X +sf | $FRAME -l 240 -p 80 | $WINDOW -l 240 -L 240 |
+	$MFCC -l 240 -m $mfcc_order -s 8 -E> $base.mfcc
+  
 
 ### Extracción de características.
 
