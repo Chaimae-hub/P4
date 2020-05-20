@@ -75,6 +75,19 @@ sox $inputfile -t raw -e signed -b 16 - | $X2X +sf | $FRAME -l 240 -p 80 | $WIND
 - Inserte una imagen mostrando la dependencia entre los coeficientes 2 y 3 de las tres parametrizaciones
   para una señal de prueba.
   
+  lpc:
+  
+  			<img src="lpc.png" width="640" align="center">
+			
+  lpcc:
+  
+  			<img src="lpcc.png" width="640" align="center">
+
+  mfcc:
+  
+ 			 <img src="mfcc.png" width="640" align="center">
+			 
+  
   + ¿Cuál de ellas le parece que contiene más información?
 
 - Usando el programa <code>pearson</code>, obtenga los coeficientes de correlación normalizada entre los
