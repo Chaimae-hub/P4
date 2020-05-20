@@ -77,15 +77,15 @@ sox $inputfile -t raw -e signed -b 16 - | $X2X +sf | $FRAME -l 240 -p 80 | $WIND
   
   lpc:
   
-  			<img src="lpc.png" width="640" align="center">
+  <img src="lpc.png" width="640" align="center">
 			
   lpcc:
   
-  			<img src="lpcc.png" width="640" align="center">
+  <img src="lpcc.png" width="640" align="center">
 
   mfcc:
   
- 			 <img src="mfcc.png" width="640" align="center">
+  <img src="mfcc.png" width="640" align="center">
 			 
   
   + ¿Cuál de ellas le parece que contiene más información?
