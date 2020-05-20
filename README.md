@@ -77,7 +77,7 @@ sox $inputfile -t raw -e signed -b 16 - | $X2X +sf | $FRAME -l 240 -p 80 | $WIND
   
   lpc:
   
-  <img src="lpc.png" width="640" align="center">
+  <img src="lp.png" width="640" align="center">
 			
   lpcc:
   
