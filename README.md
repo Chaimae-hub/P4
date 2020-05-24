@@ -105,7 +105,7 @@ Contiene más información los coeficientes mfcc ya que sus coeficientas estan m
   
 - Según la teoría, ¿qué parámetros considera adecuados para el cálculo de los coeficientes LPCC y MFCC?
 
-Para los LPCC se suele utilizar Nlpc=12 y para los MFCC Nmfcc=13.
+  Para los LPCC se suele utilizar Nlpc=12 y para los MFCC Nmfcc=13.
 
 ### Entrenamiento y visualización de los GMM.
 
@@ -139,6 +139,8 @@ Complete el código necesario para entrenar modelos GMM.
   GMM: SES013 LOC: SES013
   
   <img src="13-13.jpeg" width="640" align="center">
+  
+  Podemos ver que el modelado GMM nos deja ver si un hablante es el que se espera o no, ya que las muestras de población entonces se corresponden con el porcentaje de aciertos y no se corresponden tanto si no es el hablante esperado.
 
 ### Reconocimiento del locutor.
 
