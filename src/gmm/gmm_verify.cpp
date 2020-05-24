@@ -32,6 +32,7 @@ float verify(const GMM &gmm_candidate, const fmatrix &dat) {
    */
 
   float score = 0.0F;
+  score = gmm_candidate.logprob(dat);
   return score;
 }
 
@@ -45,7 +46,9 @@ float verify(const GMM &gmm_candidate, const GMM & gmm_world, const fmatrix &dat
   lprobcand = 0.0F;
   lprobbackground = 0.0F;
 
-
+  lprobcand = gmm_candidate.logprob(dat);
+  lprobbackground = gmm_world.logprob(dat);
+  score = lprobcand - lprobbackground; 
   return score;
 
 }
@@ -170,8 +173,8 @@ int usage(const char *progname, int err)  {
        << "  -e ext\tExtension of the feature files (def. \"" << DEF_FEAT_EXT << "\")\n"
        << "  -D dir\tDirectory of the gmm files (def. \".\")\n"
        << "  -E ext\tExtension of the gmm files (def. \"" << DEF_GMM_EXT << "\")\n"
-       << "  -w name\tName of the \"background\" GMM (def. do not use world model\")\n"
-       << "         \tnname does not include directory and extension:\n"
+       << "  -w name\tName of the \"background\" GMM (def. do not use world model)\n"
+       << "         \tname does not include directory and extension:\n"
        << "         \tthe dir option (-D) and ext (-e) will be added\n\n";
 
   cerr << "Each \"trial\" is defined by the speech files and the candidate (pretended user)\n"
