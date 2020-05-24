@@ -97,9 +97,11 @@ Contiene más información los coeficientes mfcc ya que sus coeficientas estan m
 
   |                        | LP   | LPCC | MFCC |
   |------------------------|:----:|:----:|:----:|
-  | &rho;<sub>x</sub>[2,3] |      |      |      |
+  | &rho;<sub>x</sub>[2,3] |  -0.874552    |  0.147184   | -0.216865     |
   
   + Compare los resultados de <code>pearson</code> con los obtenidos gráficamente.
+  
+  Bueno podemos ver que los coeficiente 2 y 3 del lp estan más correlados que en los otros casos tal y como podemos comprobar en la gráfica. A diferencia de como hemos dicho a priori los mfcc en este caso parece estar ligeramente más correlado que el lpcc.
   
 - Según la teoría, ¿qué parámetros considera adecuados para el cálculo de los coeficientes LPCC y MFCC?
 
