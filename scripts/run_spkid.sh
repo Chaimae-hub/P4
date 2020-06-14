@@ -14,7 +14,7 @@
 # - db:       directory of the speecon database 
 lists=lists
 w=work
-name_exp=two
+name_exp=three
 db=spk_8mu/speecon
 
 # ------------------------
@@ -158,7 +158,9 @@ for cmd in $*; do
 	   # Implement 'trainworld' in order to get a Universal Background Model for speaker verification
 	   #
 	   # - The name of the world model will be used by gmm_verify in the 'verify' command below.
-       echo "Implement the trainworld option ..."
+       
+        gmm_train  -v 1 -T 0.001 -N50 -m 5  -d $w/$FEAT -e $FEAT -g $w/gmm/$FEAT/world.gmm $lists/verif/others.train || exit 1
+        
    elif [[ $cmd == verify ]]; then
        ## @file
 	   # \TODO 
@@ -168,7 +170,12 @@ for cmd in $*; do
 	   #   For instance:
 	   #   * <code> gmm_verify ... > $w/verif_${FEAT}_${name_exp}.log </code>
 	   #   * <code> gmm_verify ... | tee $w/verif_${FEAT}_${name_exp}.log </code>
-       echo "Implement the verify option ..."
+    
+       (gmm_verify -d $w/$FEAT -e $FEAT -D $w/gmm/$FEAT -w world -E gmm $lists/gmm.list $lists/verif/all.test $lists/verif/all.test.candidates | tee $w/verification.log) || exit 1
+       
+        perl -ane 'print "$F[0]\t$F[1]\t";
+        if ($F[2] > -3.214) {print "1\n"}
+        else {print "0\n"}' $w/verification.log > verif_test.log
 
    elif [[ $cmd == verif_err ]]; then
        if [[ ! -s $w/verif_${FEAT}_${name_exp}.log ]] ; then
@@ -177,7 +184,7 @@ for cmd in $*; do
        fi
        # You can pass the threshold to spk_verif_score.pl or it computes the
        # best one for these particular results.
-       spk_verif_score.pl $w/verif_${FEAT}_${name_exp}.log | tee $w/verif_${FEAT}_${name_exp}.res
+       scripts/spk_verif_score.pl $w/verif_${FEAT}_${name_exp}.log | tee $w/verif_${FEAT}_${name_exp}.res
 
    elif [[ $cmd == finalclass ]]; then
        ## @file
@@ -185,8 +192,8 @@ for cmd in $*; do
 	   # Perform the final test on the speaker classification of the files in spk_ima/sr_test/spk_cls.
 	   # The list of users is the same as for the classification task. The list of files to be
 	   # recognized is lists/final/class.test
-       echo "To be implemented ..."
-   
+
+        echo "To be implemented ..."
    elif [[ $cmd == finalverif ]]; then
        ## @file
 	   # \TODO
@@ -194,6 +201,7 @@ for cmd in $*; do
 	   # The list of legitimate users is lists/final/verif.users, the list of files to be verified
 	   # is lists/final/verif.test, and the list of users claimed by the test files is
 	   # lists/final/verif.test.candidates
+       
        echo "To be implemented ..."
    
    # If the command is not recognize, check if it is the name
